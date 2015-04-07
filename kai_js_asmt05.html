@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Homework 05 - JavaScript: Arrays</title>
+<meta name="keywords" content="Kai Yun Pekarsky, html class, CNIT133, web application programming">
+<meta name="description" content="Home Page of Kai Yun Pekarsky, student at CCSF.">
+
+<!-- set up the tab and style for the main section  -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<style type="text/css">
+body {
+      background-color: #e1fbfb;
+	    color: #005858;
+	    Text-align: center;
+	    }
+
+#content {
+	        width:850px;
+	        margin: 0px auto; 
+		      padding: 15px;
+          text-align: left; /* Counteract to IE/Win Hack */	
+	        background-color: #b4ecec;
+          border: 0px; 
+		      padding: 20px; 
+          border-radius: 25px;
+          font-size: 16px;
+          font-family: Helvetica, sans-serif;
+		     }	  
+
+.n { color: red; font-style: italic; }
+
+/* For panel design */		
+#panel,#flip {
+              padding: 5px;
+	            text-align: center;
+	            background-color: #ffc95c;
+	            border: solid 2px #005858;
+	           }
+
+#panel {
+        padding: 5px;
+	      display: none;
+	     }
+		
+/* For form design */
+table { 
+       border-collapse: collapse;
+       text-align: left;
+       padding: 20px; 
+       border: solid 2px #005858;
+       background-color: #ffc95c;
+	     margin: 0px auto;
+      }
+
+#hdright {
+          position: absolute;
+          right: 40px;
+          top: 120px;
+         }
+           
+#right {
+        position: absolute;
+        right: 40px;
+        top: 180px;
+       }
+           
+/* For input alignment */
+input.c {text-align: center;}
+
+</style>
+
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h2>CNIT 133 Homework 5 - Arrays</h2>
+</header>
+
+<section id="content">
+<div id="tabs">
+
+<ul>
+<li><a href="#tabs-1">Part 1A</a></li>
+<li><a href="#tabs-2">Part 1B</a></li>
+<li><a href="#tabs-3">Part 2</a></li>
+<li><a href="#tabs-4">Part 3</a></li>
+<li><a href="#tabs-5">Part 4</a></li>
+<li><a href="#tabs-6">Extra Credit</a></li>
+</ul>
+
+<div id="tabs-1">
+<script>
+function Validate()
+{
+// create messages
+	var msg = "Please enter your name";
+	var msg1 = "Please enter your email address";
+	var msg2 = "Please select your highest education";
+	var msg3 = "Please select area(s) you have lived in";
+    var msg4 = "Please select an area you would like to stay for long term";
+
+// set up return variable
+    valid = false; 
+    
+// check for each required info is entered
+ if (document.myform1.name.value == "" || document.myform1.name.value == null)
+  	{          	
+        alert (msg);
+    }          
+
+if (document.myform1.email.value == "" || document.myform1.email.value == null)
+  	{          	
+        alert (msg1);
+    }     
+
+for (i=0; i<4; i++)
+{
+  if (document.myform1.edu[i].checked == true)
+    {     
+        valid = true;
+        break;
+    } 
+}
+
+  if (valid == false)
+    {
+        alert (msg2);
+    }
+
+for (i=0; i<6; i++)
+{
+  if (document.myform1.area[i].checked == true)
+    {     
+        valid = true;
+        break;
+    } 
+  else
+    {
+        valid = false;
+    }
+}
+  if (valid == false)
+    {
+        alert (msg3);
+    }
+
+  if (document.myform1.choice.selectedIndex == 0)
+    {     
+        alert (msg4);
+        valid = false;
+    } 
+
+if (valid == true)
+{
+ document.getElementById("valid").innerHTML = ("Thanks for filling out the form. Good-bye!");  
+}
+
+}
+</script>
+
+<form id="myform1" name="myform1">
+
+<h4>Part 1A Form Validation</h4>
+
+<table>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<th colspan="2">Please provide below information</th>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td>Your Name: <input type="text" size="30" maxlength="30" id="name" name="name" autofocus /></td>
+<td>Your Email: <input type="text" size="30" maxlength="50" name="email" /></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2">Highest level of education achieved:</td>
+</tr>
+<tr>
+<td><input type="radio" name="edu" value="high school" />High School</td>
+<td><input type="radio" name="edu" value="associate degree" />Associate Degree</td>
+</tr>
+<tr>
+<td><input type="radio" name="edu" value="bachelor degree" />Bachelor Degree</td>
+<td><input type="radio" name="edu" value="graduate degree" />Graduate Degree</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2">Area you have lived in the San Francisco Bay Area: (please select all that applies)</td>
+</tr>
+<tr>
+<td><input type="checkbox" name="area" value="san francisco" />San Francisco</td>
+<td><input type="checkbox" name="area" value="north bay" />North Bay</td>
+</tr>
+<tr>
+<td><input type="checkbox" name="area" value="east bay" />East Bay</td>
+<td><input type="checkbox" name="area" value="pennisula" />Pennisula</td>
+</tr>
+<tr>
+<td><input type="checkbox" name="area" value="south bay" />South Bay</td>
+<td><input type="checkbox" name="area" value="none" />None - just visiting</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2">Area you would like to settle down for long term:</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td>
+<select name="choice">
+<option value=" ">-Choose one-</option>
+<option value="sf">San Francisco</option>
+<option value="north bay">North Bay</option>
+<option value="east bay">East Bay</option>
+<option value="pennisula">Pennisula</option>
+<option value="south bay">South Bay</option>
+<option value="na">Not Applicable</option>
+</select>
+</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2" id="valid"></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td><input type="button" value="SUBMIT" onclick="Validate();" /></td>
+<td><input type="reset" value="RESET" onclick="window.location.reload();" /></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+</table>
+
+</form>
+</div>
+
+<div id="tabs-2">
+<script>
+// take user to the website of their choice
+function goToNewDest(myForm)
+{
+  var destination = myForm.relink.options[myForm.relink.selectedIndex].value;
+  window.location = destination;
+}
+</script>
+
+<h4>Part 1B Event Handler</h4>
+
+<form>
+<h5>
+Looking for housing? Check out below:
+</h5>
+<select name="relink" onchange="goToNewDest(this.form);">
+<option value=" ">-Choose one-</option>
+<option value="http://www.trulia.com/">Trulia</option>
+<option value="http://www.redfin.com/">RedFin</option>
+<option value="http://www.zillow.com/">Zillow</option>
+<option value="http://www.craigslist.org/">CraigsList</option>
+</select>
+</form>
+
+<form>
+<h5>
+News of Bay Area housing market? <br> 
+Check out here:
+</h5>
+<select name="relink">
+<option value=" ">-Choose one-</option>
+<option value="http://www.homebuyinginstitute.com/news/bay-area-good-timing-611/">Buying a Bay Area Home in 2015</option>
+<option value="http://kalw.org/post/bay-area-housing-bubble-or-housing-crisis">Is the Bay Area in a housing bubble?</option>
+<option value="http://www.paragon-re.com/3_Recessions_2_Bubbles_and_a_Baby">Thirty Years of SF Real Estate Cycles</option>
+<option value="http://www.bizjournals.com/sanfrancisco/blog/real-estate/2014/12/condos-rising-and-4-other-key-trends-in-bay-area.html">Key trends in Bay Area housing in 2014</option>
+</select>
+<br>
+<br>
+<input type="button" onclick="goToNewDest(this.form);" value="Take me there!" />
+</form>
+</div>
+
+<div id="tabs-3">
+<script>
+var stateArray = [["AL", "ALABAMA", "Montgomery", "4,369,862"],
+                  ["AK", "ALASKA", "Juneau", "619,500"],
+                  ["AZ", "ARIZONA", "Phoenix", "4,778,332"],
+                  ["AR", "ARKANSAS", "Little Rock", "2,551,373"],
+                  ["CA", "CALIFORNIA", "Sacramento", "3,145,121"],
+                  ["CO", "COLORADO", "Denver", "4,056,133"]]
+
+function stateSearch()
+{
+// set variable to store user input and change the case
+var input = document.getElementById("stateName").value;
+    input = input.toUpperCase();
+    found = false; // use to validate if user input is valid state
+
+// loop through the array to populate state info
+for (row=0; row < stateArray.length; row++)
+{
+  if (stateArray[row][0] == input || stateArray[row][1] == input)
+    {
+     document.getElementById("stateCap").value = stateArray[row][2];
+     document.getElementById("statePop").value = stateArray[row][3];
+     found = true;
+     break;
+    }
+}
+
+// validate user input
+if (found == false)
+{
+ alert ("State name not found! Please use the reference table!");
+}
+}
+</script>
+
+<script>
+// show instructions by JQuery UI
+$(function() {
+
+$( "#instruction" ).dialog({
+autoOpen: false,
+show: {
+effect: "blind",
+duration: 1000
+},
+
+hide: {
+effect: "explode",
+duration: 1000
+}
+});
+
+$( "#clickopen" ).click(function() {
+$( "#instruction" ).dialog( "open" );
+});
+});
+</script>
+
+<h4>State Info</h4>
+
+<button type="button" id="clickopen">Click for instructions</button>
+<div id="instruction" title="Instructions">
+<p>Please enter a state abbreviation or name (lower or upper case is ok) in the field next to the State Info button</p>
+</div>
+<br><br>
+
+<h5 id="hdright">State Name Reference</h5>
+
+<table id="right">
+<tr>
+<td>State &nbsp;&nbsp;<br> Abbr</td>
+<td>State Name &nbsp;</td>
+</tr>
+<tr>
+<td>AL</td>
+<td>Alabama</td>
+</tr>
+<tr>
+<td>AK</td>
+<td>Alaska</td>
+</tr>
+<tr>
+<td>AZ</td>
+<td>Arizona</td>
+</tr>
+<tr>
+<td>AR</td>
+<td>Arkansas</td>
+</tr><tr>
+<td>CA</td>
+<td>California</td>
+</tr>
+<tr>
+<td>CO</td>
+<td>Colorado</td>
+</tr>
+</table>
+<br>
+
+<form name="myform2">
+
+<input type="text" size="20" id="stateName" autofocus />
+<input type="button" onclick="stateSearch();" value="State Info" />
+<br><br>
+
+<h5>Capital of the State:</h5>
+<input type="text" size="20" id="stateCap" />
+<br><br>
+
+<h5>Population of the State:</h5>
+<input type="text" size="20" id="statePop" />
+<br><br>
+
+<input type="reset" value="RESET" onclick="document.getElementById('stateName').focus();" />
+<br><br>
+</form>
+</div>
+
+<div id="tabs-4">
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform3").validate({
+  // Rules for each input item
+  rules:
+  {
+  gross: { required: true, number: true, min: 0}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// calculate the weekly salary each salesperson made and keep track of how many salesperson earned salaries under each predefined salary range
+
+// set up the counters array to keep track of employees in each salary range
+  var counter = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+function calculate()
+{
+ if ($("#myform3").valid()) 
+ {
+  // set up the variables to get the user input and calculate the salary truncated to an integer
+  var gross = parseFloat(document.getElementById("gross").value);
+  var salary = Math.floor((gross * 0.09 + 200)/100);
+  // set up salary range variable to update the counter
+  var range = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+  
+  // reset the salary variable if larger than 10
+  if (salary > 10)
+  {
+    salary = 10;
+  }
+  
+  // update the counter for each salary range based on the saraly calculated
+  for (i = 0; i < counter.length; i++)
+  {
+    if (salary == range[i])
+    {
+     counter[i]++;
+    }
+  }
+ }
+ output();
+}
+
+function output() 
+{
+  document.myform3.record.value = 
+  "Number of salesperson per salary range:\n" +
+  "a) $200~$299\t" + counter[0] + "\n" + 
+  "b) $300~$399\t" + counter[1] + "\n" + 
+  "c) $400~$499\t" + counter[2] + "\n" + 
+  "d) $500~$599\t" + counter[3] + "\n" + 
+  "e) $600~$699\t" + counter[4] + "\n" + 
+  "f) $700~$799\t" + counter[5] + "\n" + 
+  "g) $800~$899\t" + counter[6] + "\n" + 
+  "h) $900~$999\t" + counter[7] + "\n" + 
+  "i) $1000 and above\t" + counter[8];
+ 
+ document.myform3.gross.value = "";
+ document.myform3.gross.focus();
+}
+</script>
+
+<h4>Calculate and record salespeople's eraning</h4>
+
+<form name="myform3" id="myform3">
+<table>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="3"><label for="gross">Please enter the weekly gross sales per salesperson: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" size="20" id="gross" name="gross"><br></p></td>
+<td><input type="button" onclick="calculate();" value="Enter" /></td>
+</tr>
+<tr><td colspan="3">&nbsp;</td></tr>
+<tr>
+<td colspan="2">
+<textarea rows="10" cols="40" name="record"></textarea>
+</td>
+<td><input type="reset" value="RESET" onclick="document.getElementById('gross').focus();" /></td>
+</tr>
+<tr><td colspan="3">&nbsp;</td></tr>
+</table>
+
+</form>
+</div>
+
+<div id="tabs-5">
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform4").validate({
+  // Rules for each input item
+  rules:
+  {
+  input: { required: true, number: true, min: 10, max: 100}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// keep a record of non duplicate numbers inputted by user
+// set up global variables to keep track of the user input
+  var digit, count, numbers;
+  start();
+
+function record()
+{
+ if ($("#myform4").valid()) 
+ {
+  // set up the variables to get the user input and validate it
+  var input = parseInt(document.getElementById("input").value);
+      
+  // determine if the user input already exist in the array list
+  var exist = false;
+  for (i = 0; i < digit.length; i++)
+  {
+    if (input == digit[i])
+    {
+     exist = true;
+     break;
+    }
+  }
+  
+  // if input is not in the array list already, add the input to the array and to the output string
+  if (!exist)
+  {
+   digit.push(input);
+   numbers += input + " ";
+  }
+  
+  // update the count and alert the user once ten numbers have been reached
+  count++;
+  if (count > 10)
+  {
+   alert ("You have entered 10 numbers!");
+   start();
+  }
+ } 
+  output2();  
+}
+
+// display the message in the textarea
+function output2()
+{
+ document.myform4.track.value = "There are " + count + " numbers entered. \n" + 
+  "Non duplicate number inputted by user are:\n" + numbers;
+ 
+ // clear up the input area everytime after user entered a number
+ document.myform4.input.value = "";
+ document.myform4.input.focus();
+}
+
+// This function is called when the page initially loads, and when the Reset button is clicked.
+// It always return true, to allow the Reset button to clear all the form fields.
+function start() 
+{
+// Initialize the global variables
+digit = [];
+numbers = "";
+count = 0;
+return true;
+}
+</script>
+
+<h4>Record of non duplicate user input numbers</h4>
+
+<form name="myform4" id="myform4" onreset="return start();">
+<table>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="3"><label for="input">Please enter 10 numbers between 10 to 100: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" size="20" id="input" name="input"><br></p></td>
+<td><input type="button" onclick="record();" value="Enter" /></td>
+</tr>
+<tr><td colspan="3">&nbsp;</td></tr>
+<tr>
+<td colspan="2">
+<textarea rows="6" cols="40" name="track"></textarea>
+</td>
+<td><input type="reset" value="RESET" onclick="document.getElementById('input').focus();" /></td>
+</tr>
+<tr><td colspan="3">&nbsp;</td></tr>
+</table>
+
+</form>
+</div>
+
+<div id="tabs-6">
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform5").validate({
+  // Rules for each input item
+  rules:
+  {
+   select: { required: true, number: true, min: 1, max: 2}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// assign seat depending on user's choice of first or economy class
+
+// set up the global variable to keep track of the seat assignment
+var seatA, seatB, iA, iB, display;
+var occupyA, occupyB;
+restart();
+
+// depending on user input, determining where to assign seat
+function seatAssign()
+{
+ if ($("#myform5").valid()) 
+ {
+  var input = parseInt(document.getElementById("select").value);
+  
+  if (input == 1)
+   {
+     firstSeat();
+   }
+  else if (input == 2)
+   {
+     ecoSeat();
+   }
+ 
+ document.getElementById("select").value = "";
+ document.getElementById("select").focus();
+ display = "";
+ }
+}
+
+function firstSeat()
+{
+ // assign the seat number and update the array
+  seatA++;
+  occupyA[iA]++;
+  iA++;
+  
+ // determine if there is seat still available in first class
+ if (occupyA[5] == 1)
+ {
+  alert ("The first class is full!");
+  var conf = confirm("Would you consider economy class?");
+  if (conf == true)
+  {
+    // check if there are seats in both classes
+    if (occupyA[5] == 1 && occupyB[5] == 1)
+    {
+     alert ("The flight is full! Please come back later.");
+     res();
+     restart();
+    } 
+    else
+    {
+     ecoSeat();
+    }
+  }
+  else
+  {
+   alert ("Next flight leaves in 3 hours.");
+   res();
+   restart();
+  }
+ }
+ else
+ {
+  // display the boarding pass
+  display += "Your Boarding Pass is printed below" + "<br><br>";
+  display += "<table><tr><td>Flight:</td><td>Destination:</td><td>Passenger:</td><td>|&nbsp;&nbsp;Flight</td></tr>";
+  display += "<tr><td>XYZ Airline OL001&nbsp;&nbsp;</td><td>SFO to LA</td><td>Jane Doe</td><td>|&nbsp;&nbsp;XYZ Airline OL001&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>";
+  display += "<tr><td colspan='3'><hr></td><td>|&nbsp;</td></tr>";
+  display += "<tr><td>Passenger</td><td>&nbsp;</td><td>&nbsp;</td><td>|&nbsp;&nbsp;Passenger</td></tr>";
+  display += "<tr><td>Jane Doe</td><td>&nbsp;</td><td>&nbsp;</td><td>|&nbsp;&nbsp;Jane Doe</td></tr>";
+  display += "<tr><td colspan='3'>&nbsp;</td><td>|&nbsp;</td></tr>";
+  display += "<tr><td>Gate</td><td>Departure</td><td>Boarding Zone&nbsp;&nbsp;</td><td>|&nbsp;&nbsp;Seat</td></tr>";
+  display += "<tr><td>A1</td><td>4:00 pm 1 APR 2015&nbsp;&nbsp;&nbsp;&nbsp;</td><td>First Class</td><td>|&nbsp;&nbsp;" + seatA + "</td></tr></table>";
+ 
+  // set the contents of the <div> block to the contents of display
+  document.getElementById("boardingPass").innerHTML = display;
+ 
+ }
+}
+
+function ecoSeat()
+{
+  // assign the seat number and update the array
+  seatB++;
+  occupyB[iB]++;
+  iB++;
+ 
+  // determine if there is seat still available in economy class 
+  if (occupyB[5] == 1)
+  {    
+   alert ("The economy class is full!");
+   var conf = confirm("Would you consider first class?");
+   if (conf == true)
+   {
+    // check if there are seats in both classes
+    if (occupyA[5] == 1 && occupyB[5] == 1)
+    {
+     alert ("The flight is full! Please come back later.");
+     res();
+     restart();
+    } 
+    else
+    {
+     firstSeat();
+    }
+   }
+   else
+   {
+    alert ("Next flight leaves in 3 hours.");
+    res();
+    restart();
+   }
+  }
+  else
+  {
+   // display the boarding pass
+   display += "Your Boarding Pass is printed below" + "<br><br>";
+   display += "<table><tr><td>Flight:</td><td>Destination:</td><td>Passenger:</td><td>|&nbsp;&nbsp;Flight</td></tr>";
+   display += "<tr><td>XYZ Airline OL001&nbsp;&nbsp;</td><td>SFO to LA</td><td>Jane Doe</td><td>|&nbsp;&nbsp;XYZ Airline OL001&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>";
+   display += "<tr><td colspan='3'><hr></td><td>|&nbsp;</td></tr>";
+   display += "<tr><td>Passenger</td><td>&nbsp;</td><td>&nbsp;</td><td>|&nbsp;&nbsp;Passenger</td></tr>";
+   display += "<tr><td>Jane Doe</td><td>&nbsp;</td><td>&nbsp;</td><td>|&nbsp;&nbsp;Jane Doe</td></tr>";
+   display += "<tr><td colspan='3'>&nbsp;</td><td>|&nbsp;</td></tr>";
+   display += "<tr><td>Gate</td><td>Departure</td><td>Boarding Zone&nbsp;&nbsp;</td><td>|&nbsp;&nbsp;Seat</td></tr>";
+   display += "<tr><td>A1</td><td>4:00 pm 1 APR 2015&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Economy Class</td><td>|&nbsp;&nbsp;" + seatB + "</td></tr></table>";
+ 
+   // set the contents of the <div> block to the contents of display
+   document.getElementById("boardingPass").innerHTML = display;
+  }
+}
+
+// initialize the global variables
+function restart()
+{
+ seatA = 0, seatB = 5;
+ iA = 0, iB = 0;
+ display = "";
+ occupyA = [0, 0, 0, 0, 0, 0];
+ occupyB = [0, 0, 0, 0, 0, 0];
+ return true;
+}
+
+function res()
+   {
+    document.getElementById("boardingPass").innerHTML = " ";
+   }
+
+</script>
+
+<h4>Plane Seat Assignment</h4>
+
+<form name="myform5" id="myform5" onreset="return restart();">
+
+<h5><label for="select">Please type 1 for "First Class" and Please type 2 for "Economy"</label></h5>
+<p class="n"><input type="text" size="6" id="select" name="select" autofocus /><br></p>
+<input type="button" onclick="seatAssign();" value="Enter" />
+<input type="reset" value="RESET" onclick="res();" />
+<br>
+<br>
+
+<div id="boardingPass"></div>
+<br>
+<br>
+
+</form>
+</div>
+
+</div>
+</section>
+
+<footer>
+<p class="center">
+<a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:64px;height:64px" src="HTML5_Logo_64.png" alt="HTML5"></a>
+<a href="http://css-validator.org/check/referer"><img style="border:0;width:88px;height:31px"
+            src="http://css-validator.org/images/vcss.png"
+            alt="Valid CSS!" /></a>
+</p>
+</footer>
+
+</body>
+
+</html>
