@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Homework 04 - Looping Statements</title>
+<meta name="keywords" content="Kai Yun Pekarsky, html class, CNIT133, web application programming">
+<meta name="description" content="Home Page of Kai Yun Pekarsky, student at CCSF.">
+
+<!-- set up the tab and style for the main section  -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<style type="text/css">
+body {
+      background-color: #e1fbfb;
+	    color: #005858;
+	    Text-align: center;
+	   }
+
+#content {
+	        width:850px;
+	        margin: 0px auto; 
+		      padding: 15px;
+          text-align: left; /* Counteract to IE/Win Hack */	
+	        background-color: #b4ecec;
+          border: 0px; 
+		      padding: 20px; 
+          border-radius: 25px;
+          font-size: 16px;
+          font-family: Helvetica, sans-serif;
+		     }	  
+
+.n { color: red; font-style: italic; }
+
+/* For panel design */		
+#panel,#flip {
+              padding: 5px;
+	            text-align: center;
+	            background-color: #ffc95c;
+	            border: solid 2px #005858;
+	           }
+
+#panel {
+        padding: 5px;
+	      display: none;
+	     }
+		
+/* For form design */
+table { 
+       border-collapse: collapse;
+       text-align: left;
+       padding: 20px; 
+       border: solid 2px #005858;
+       background-color: #ffc95c;
+	     margin: 0px auto;
+     }
+           
+/* For input alignment */
+input {text-align: right;}
+input.c {text-align: center;}
+
+/* For image position */
+#imgT {
+       position: absolute;
+       right: 150px;
+       top: 150px;
+      }
+
+/* For button position */
+#buttonT {
+          position: absolute;
+          right: 120px;
+          top: 400px;
+         }
+</style>
+
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h2>CNIT 133 Homework 4 - Looping Statements</h2>
+</header>
+
+<section id="content">
+<div id="tabs">
+
+<ul>
+<li><a href="#tabs-1">Part 1</a></li>
+<li><a href="#tabs-2">Part 2</a></li>
+<li><a href="#tabs-3">Part 3</a></li>
+<li><a href="#tabs-4">Part 4</a></li>
+<li><a href="#tabs-5">Part 5</a></li>
+<li><a href="#tabs-6">Part 6</a></li>
+<li><a href="#tabs-7">Extra Credit</a></li>
+</ul>
+
+<div id="tabs-1">
+<script>
+$(function() {
+$( "#draggable" ).draggable();
+});
+</script>
+
+<script>
+// calculate the product and sum of every third integer from 5 to 20
+function calculatePS() {
+
+  // set up the variables for calculations
+  var product = 1,
+      sum = 0;
+	  
+  // use the for statement to calculate the product and sum
+  for (var bNum = 5; bNum <= 20; bNum += 3)
+  {
+   product *= bNum;
+   sum += bNum;
+  }
+  
+  document.getElementById("product").innerHTML = ("The result of 5 * 8 * 11 * 14 * 17 * 20 = " + product);
+  document.getElementById("sum").innerHTML = ("The result of 5 + 8 + 11 + 14 + 17 + 20 = " + sum);
+}
+
+// calculate the product and sum of every third integer from 3 to 31
+function countPS() {
+
+  // set up the variables for calculations
+  var iNum = 3,
+      product = 1,
+      sum = 0;
+	  
+  // use the while statement to calculate the product and sum
+  while (iNum <= 31)
+  {
+   product *= iNum;
+   sum += iNum;
+   iNum += 4;
+  }
+  
+  document.getElementById("productW").innerHTML = ("The result of 3 * 7 * 11 * 15 * 19 * 23 * 27 * 31 = " + product);
+  document.getElementById("sumW").innerHTML = ("The result of 3 + 7 + 11 + 15 + 19 + 23 + 27 + 31 = " + sum);
+}
+</script>
+
+<form id="myform1" name="myform1">
+
+<h4>Part 1a using the for statement</h4>
+
+
+<button type="button" onclick="calculatePS()">Click for the results</button>
+<br><br>
+
+<table>
+<tr>
+<td colspan="4" id="product"></td>
+</tr>
+<tr>
+<td colspan="4" id="sum"></td>
+</tr>
+</table>
+<br>
+
+<h4>Part 1b using the while statement</h4>
+
+<button type="button" onclick="countPS()">Click for the results</button>
+<br><br>
+
+<div id="draggable" class="ui-widget-content">
+<table>
+<tr>
+<td colspan="4" id="productW"></td>
+</tr>
+<tr>
+<td colspan="4" id="sumW"></td>
+</tr>
+</table>
+</div>
+<br><br>
+
+</form>
+</div>
+
+<div id="tabs-2">
+<h4>Payroll Calculation</h4>
+
+<script>
+// calculate the wage based on user input
+function payroll() {
+  
+  // set up variables
+  var hourN = ["h1", "h2", "h3", "h4", "h5", "h6"],
+      hourL = ["hr1", "hr2", "hr3", "hr4", "hr5", "hr6"],
+      rateN = ["r1", "r2", "r3", "r4", "r5", "r6"],
+      rateL = ["rate1", "rate2", "rate3", "rate4", "rate5", "rate6"];
+      
+  // get input number value from form using loop
+  for (i = 0; i < hourL.length; i++)
+  {
+   hourN[i] = document.getElementById(hourL[i]).value;
+   rateN[i] = document.getElementById(rateL[i]).value;
+  }
+  
+  // declare the variables to hold the float numbers
+  var hrNL = ["h1N", "h2N", "h3N", "h4N", "h5N", "h6N"],
+      rNL = ["r1N", "r2N", "r3N", "r4N", "r5N", "r6N"];
+  
+  // check input for numeric
+  for (i = 0; i < hourN.length; i++)
+  {
+   if (isNaN(hourN[i]) || isNaN(rateN[i]) || hourN[i] =="" || rateN[i] =="")
+     {
+      alert("Please correct the error and enter a valid number!");
+     }
+   else 
+     {
+      // cast the input into float
+      hrNL[i] = parseFloat(hourN[i]);
+      rNL[i] = parseFloat(rateN[i]);
+     }
+  }  
+  
+  // populate the hours worked and hourly rate for each employee
+  var hrDL = ["hr1D", "hr2D", "hr3D", "hr4D", "hr5D", "hr6D"],
+      rateDL = ["rate1D", "rate2D", "rate3D", "rate4D", "rate5D", "rate6D"];
+    
+  for (i = 0; i < hrNL.length; i++)
+  {
+   document.getElementById(hrDL[i]).value = hrNL[i];
+   document.getElementById(rateDL[i]).value = rNL[i];
+  }
+    
+  // calculate the wage for each employee 
+  var grossWL = ["gross1W", "gross2W", "gross3W", "gross4W", "gross5W", "gross6W"];
+    
+  for (i = 0; i < hrDL.length; i++)
+  {
+   if (hrNL[i] > 40)
+   {
+    grossWL[i] = ((hrNL[i]-40) * 1.5 * rNL[i] + 40 * rNL[i]).toFixed(2);
+   }
+   else
+   {
+    grossWL[i] = (hrNL[i] * rNL[i]).toFixed(2);
+   }
+  }
+  
+  // populate the wages for each employee
+  var grossL = ["gross1", "gross2", "gross3", "gross4", "gross5", "gross6"];
+  
+  for (i = 0; i < grossWL.length; i++)
+  {
+   document.getElementById(grossL[i]).value = grossWL[i];
+  }
+
+}
+</script>
+
+<form id="myform2" name="myform2">
+
+<table>
+<tr>
+<th colspan="4">Please input the number of hours worked and the hourly rate</th>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<th colspan="2">Employee ID</th>
+<th>Hours Worked</th>
+<th>Hourly Rate</th>
+</tr>
+<tr>
+<td colspan="2">Employee #1</td>
+<td><input type="text" id="hr1" name="hr1" size="10" autofocus /></td>
+<td><input type="text" id="rate1" name="rate1" size="10"></td>
+</tr>
+<tr>
+<td colspan="2">Employee #2</td>
+<td><input type="text" id="hr2" name="hr2" size="10"></td>
+<td><input type="text" id="rate2" name="rate2" size="10"></td>
+</tr>
+<tr>
+<td colspan="2">Employee #3</td>
+<td><input type="text" id="hr3" name="hr3" size="10"></td>
+<td><input type="text" id="rate3" name="rate3" size="10"></td>
+</tr>
+<tr>
+<td colspan="2">Employee #4</td>
+<td><input type="text" id="hr4" name="hr4" size="10"></td>
+<td><input type="text" id="rate4" name="rate4" size="10"></td>
+</tr>
+<tr>
+<td colspan="2">Employee #5</td>
+<td><input type="text" id="hr5" name="hr5" size="10"></td>
+<td><input type="text" id="rate5" name="rate5" size="10"></td>
+</tr>
+<tr>
+<td colspan="2">Employee #6</td>
+<td><input type="text" id="hr6" name="hr6" size="10"></td>
+<td><input type="text" id="rate6" name="rate6" size="10"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td colspan="2"><input type="button" onclick="payroll()" value="SUBMIT"></td>
+<td colspan="2"><input type="reset" value="RESET" onclick="document.getElementById('hr1').focus();"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<th>Empolyee ID </th>
+<th>Hours Worked </th>
+<th>Hourly Rate </th>
+<th>Gross Pay</th>
+</tr>
+<tr>
+<td>#1 </td>
+<td><input type="text" id="hr1D" name="hr1D" size="10"> </td>
+<td><input type="text" id="rate1D" name="rate1D" size="10"></td>
+<td><input type="text" id="gross1" name="gross1" size="10"></td>
+</tr>
+<tr>
+<td>#2 </td>
+<td><input type="text" id="hr2D" name="hr2D" size="10"> </td>
+<td><input type="text" id="rate2D" name="rate2D" size="10"></td>
+<td><input type="text" id="gross2" name="gross2" size="10"></td>
+</tr>
+<tr>
+<td>#3 </td>
+<td><input type="text" id="hr3D" name="hr3D" size="10"> </td>
+<td><input type="text" id="rate3D" name="rate3D" size="10"></td>
+<td><input type="text" id="gross3" name="gross3" size="10"></td>
+</tr>
+<tr>
+<td>#4 </td>
+<td><input type="text" id="hr4D" name="hr4D" size="10"> </td>
+<td><input type="text" id="rate4D" name="rate4D" size="10"></td>
+<td><input type="text" id="gross4" name="gross4" size="10"></td>
+</tr>
+<tr>
+<td>#5 </td>
+<td><input type="text" id="hr5D" name="hr5D" size="10"> </td>
+<td><input type="text" id="rate5D" name="rate5D" size="10"></td>
+<td><input type="text" id="gross5" name="gross5" size="10"></td>
+</tr>
+<tr>
+<td>#6 </td>
+<td><input type="text" id="hr6D" name="hr6D" size="10"> </td>
+<td><input type="text" id="rate6D" name="rate6D" size="10"></td>
+<td><input type="text" id="gross6" name="gross6" size="10"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+</table>
+
+</form>
+</div>
+
+<div id="tabs-3">
+<h4>Compound Interest Table</h4>
+
+<script>
+// calculate the compound interest based on the year selected
+function interest() {
+
+// set variable to contain an HTML table and calculate the interest
+var display = "",
+    maxYr = document.getElementById("yearN").value,
+    maxYN = parseInt(maxYr),
+    p = 1000,
+    i = 0.01,
+    r = 0.05,
+    maxR = 0.1;
+
+    display += "<table border='2' id='stripe'>";
+	display += "<tr><th> Year </th><th> Amount on Deposit </th><th> Interest Rate </th></tr>";
+
+// set a for loop to generate the rows and calculate the compound interest	
+while (r <= maxR)    
+{
+    for (n=1; n <= maxYN; n++)
+    {
+      var a = (p*Math.pow((1+r), n)).toFixed(2);
+      display += "<tr align='right'><td>" + n + "</td>" + "<td>" + a + "</td>" + "<td>" + r + "</td>";
+    }
+ r = (r+i).toFixed(2);
+ r = parseFloat(r);
+}
+display += "</table>";
+    
+// set the contents of the <div> block to the contents of display
+document.getElementById("theTable").innerHTML = display;
+
+// alternate the row color for the table
+$(document).ready(function(){ 
+    $("table#stripe tr:odd").css("background-color", "white");
+});
+
+}
+</script>
+
+<form id="myform3" name="myform3">
+
+<p>Please select a year to see the results up to that year: 
+<select id="yearN">
+<option value=" ">-Choose one-</option>
+<option value="1">1 year</option>
+<option value="2">2 year</option>
+<option value="3">3 year</option>
+<option value="4">4 year</option>
+<option value="5">5 year</option>
+<option value="6">6 year</option>
+<option value="7">7 year</option>
+<option value="8">8 year</option>
+<option value="9">9 year</option>
+<option value="10">10 year</option>
+</select>
+</p>
+
+<input type="button" onclick="interest()" value="SUBMIT">
+<br>
+
+<!-- this is where the table will be displayed by the document.getElementById statement -->
+<div id="theTable"></div>
+<br><br>
+
+</form>
+</div>
+
+<div id="tabs-4">
+<h4>Weekly Order Summary</h4>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform4").validate({
+  // Rules for each input item
+  rules:
+  {
+   qty1: { required: true, number: true, min: 0},
+   qty2: { required: true, number: true, min: 0},
+   qty3: { required: true, number: true, min: 0},
+   qty4: { required: true, number: true, min: 0},
+   qty5: { required: true, number: true, min: 0}  
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// calculate the amount sold for each item and the total amount based on user input of quantity
+function ordersum() {
+if ($("#myform4").valid()) {
+
+  // set the variables for the loop
+  var pdtN = ["pdt1", "pdt2", "pdt3", "pdt4", "pdt5"],
+      qtyL = ["qty1", "qty2", "qty3", "qty4", "qty5"],
+      qtyN = ["qtyN1", "qtyN2", "qtyN3", "qtyN4", "qtyN5"],
+      priL = ["pri1", "pri2", "pri3", "pri4", "pri5"],
+      priN = ["priN1", "priN2", "priN3", "priN4", "priN5"],
+      amtL = ["amt1", "amt2", "amt3", "amt4", "amt5"],
+      amtN = ["amtN1", "amtN2", "amtN3", "amtN4", "amtN5"],
+      total = 0;
+  
+  // switch statement to populate the price section
+    for (i = 0; i < pdtN.length; i++)
+    {
+      switch(document.getElementById(pdtN[i]).value) {  
+	  case "1":
+	  document.getElementById(priL[i]).value =  ( "2.98" )
+	  break;
+      
+      case "2":
+	  document.getElementById(priL[i]).value =  ( "4.50" )
+	  break;
+	  
+      case "3":
+	  document.getElementById(priL[i]).value =  ( "9.98" )
+	  break;
+      
+      case "4":
+	  document.getElementById(priL[i]).value =  ( "4.49" )
+	  break;
+      
+      default:
+	  document.getElementById(priL[i]).value =  ( "6.87" )
+	  break;
+	  }
+    }
+    
+  // get the user input, calculate the amount sold per item, total amount and populate the amount section
+  for (i = 0; i < qtyL.length; i++)
+  {
+   qtyN[i] = parseInt(document.getElementById(qtyL[i]).value);
+   priN[i] = parseFloat(document.getElementById(priL[i]).value);
+   amtN[i] = qtyN[i] * priN[i];
+   total += amtN[i];
+   document.getElementById(amtL[i]).value = amtN[i].toFixed(2);
+  }
+  
+  // populate the total amount sold
+  document.getElementById("totalAmt").value = total.toFixed(2);
+}
+}
+</script>
+
+<form id="myform4" name="myform4">
+
+<table>
+<tr><td colspan="6">&nbsp;</td></tr>
+<tr><td colspan="6">Please enter quantity for each item sold:</td></tr>
+<tr><td colspan="6">&nbsp;</td></tr>
+<tr>
+<th>Product #</th>
+<th colspan="3">Qty</th>
+<th>Price</th>
+<th>Sold Amount</label></th>
+</tr>
+<tr>
+<td><label for="qty1"><input class="c" type="text" id="pdt1" name="pdt1" size="8" value="1" disabled></label></td>
+<td colspan="3"><p class="n"><input type="text" id="qty1" name="qty1" size="4" autofocus /><br></p></td>
+<td><input class="c" type="text" id="pri1" name="pri1" size="8"></td>
+<td><input type="text" id="amt1" name="amt1" size="10"></td>
+</tr>
+<tr>
+<td><label for="qty2"><input class="c" type="text" id="pdt2" name="pdt2" size="8" value="2" disabled></label></td>
+<td colspan="3"><p class="n"><input type="text" id="qty2" name="qty2" size="4"><br></p></td>
+<td><input class="c" type="text" id="pri2" name="pri2" size="8"></td>
+<td><input type="text" id="amt2" name="amt2" size="10"></td>
+</tr>
+<tr>
+<td><label for="qty3"><input class="c" type="text" id="pdt3" name="pdt3" size="8" value="3" disabled></label></td>
+<td colspan="3"><p class="n"><input type="text" id="qty3" name="qty3" size="4"><br></p></td>
+<td><input class="c" type="text" id="pri3" name="pri3" size="8"></td>
+<td><input type="text" id="amt3" name="amt3" size="10"></td>
+</tr>
+<tr>
+<td><label for="qty4"><input class="c" type="text" id="pdt4" name="pdt4" size="8" value="4" disabled></label></td>
+<td colspan="3"><p class="n"><input type="text" id="qty4" name="qty4" size="4"><br></p></td>
+<td><input class="c" type="text" id="pri4" name="pri4" size="8"></td>
+<td><input type="text" id="amt4" name="amt4" size="10"></td>
+</tr>
+<tr>
+<td><label for="qty5"><input class="c" type="text" id="pdt5" name="pdt5" size="8" value="5" disabled></label></td>
+<td colspan="3"><p class="n"><input type="text" id="qty5" name="qty5" size="4"><br></p></td>
+<td><input class="c" type="text" id="pri5" name="pri5" size="8"></td>
+<td><input type="text" id="amt5" name="amt5" size="10"></td>
+</tr>
+<tr>
+<th colspan="5">Total Amount Sold</th>
+<td><input type="text" id="totalAmt" name="totalAmt" size="10"></td>
+</tr>
+<tr><td colspan="6">&nbsp;</td></tr>
+
+<tr>
+<td colspan="3"><input type="button" onclick="ordersum()" value="SUBMIT"></td>
+<td colspan="3"><input type="reset" value="RESET" onclick="document.getElementById('qty1').focus();"></td>
+</tr>
+</table>
+<br><br>
+
+</form>
+</div>
+
+<div id="tabs-5">
+<h4>Different Style of Lists</h4>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform5").validate({
+  // Rules for each input item
+  rules:
+  {
+   choice: { required: true, number: true, min: 1, max: 3},
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+
+<script>
+// based on the number chosen, display different styles of list
+function listStyle()
+{
+ if ($("#myform5").valid()) {
+ 
+   // set the variable to get the input from user
+   var display = "",
+       select = document.getElementById("choice").value;
+   
+   // use sitch statement to determine what style of list user has selected
+   switch(select) {  
+	  case "1":
+	  display += "<h5>Unordered List</h5>";
+      display += "<ul style='list-style-type: square;'>";
+      
+      for (i = 1; i < 4; i++)
+      {
+       display += "<li>List Item " + i + "</li>";
+      }
+      
+      display += "</ul>";
+	  break;
+      
+      case "2":
+	  display += "<h5>Ordered Number List</h5>";
+      display += "<ol>";
+      
+      for (i = 1; i < 4; i++)
+      {
+       display += "<li>List Item " + i + "</li>";
+      }
+      
+      display += "</ol>";
+	  break;
+	  
+      case "3":
+	  display += "<h5>Ordered Letter List</h5>";
+      display += "<ol style='list-style-type: upper-alpha;'>";
+      
+      for (i = 1; i < 4; i++)
+      {
+       display += "<li>List Item " + i + "</li>";
+      }
+      
+      display += "</ol>";
+	  break;  
+   }
+   
+   // set the contents of the <div> block to the contents of display
+   document.getElementById("theList").innerHTML = display;
+ }
+}
+</script>
+
+<script>
+// hide/ show instructions
+$(document).ready(function(){
+  $("#flip").click(function(){
+    $("#panel").slideToggle("slow");
+	});
+});
+</script>
+
+<div id="flip">Click to Show/Hide Instructions</div>
+<div id="panel">Please enter a number from 1 to 3 to see different style of lists</div>
+<br>
+
+<form id="myform5" name="myform5">
+<p><label for="choice">Please enter a number from 1 to 3: </label></p>
+<p class="n"><input type="text" id="choice" name="choice" size="4" autofocus /><br></p>
+<br>
+
+<input type="button" onclick="listStyle()" value="SUBMIT">
+<input type="reset" value="RESET" onclick="document.getElementById('choice').focus();">
+<br><br>
+
+<!-- this is where the list will show -->
+<div id="theList"></div>
+
+</form>
+</div>
+
+<div id="tabs-6">
+<h4>The Twelve Days of Christmas</h4>
+
+<p id="one"></p>
+<p id="two"></p>
+<p id="three"></p>
+<p id="four"></p>
+<p id="five"></p>
+<p id="six"></p>
+<p id="seven"></p>
+<p id="eight"></p>
+<p id="nine"></p>
+<p id="ten"></p>
+<p id="eleven"></p>
+<p id="twelve"></p>
+
+<div id="imgT">
+<img src="tree.jpg" width="164" height="230" title="Picture of Christmas Tree" alt="Christmas Tree">
+</div>
+
+<div id="buttonT">
+<button type="button">Click to hide the tree</button>
+</div>
+
+<script> 
+$(document).ready(function(){
+    $("button").click(function(){
+        $("div#imgT").animate({
+            height: 'toggle'
+        });
+    });
+});
+</script>
+
+<script>
+
+// set up the variables to output the song "The Twelve Days of Christmas" by using switch statements and loops
+var verse2 = "my true love sent to me:";
+var verse3 = "A partridge in a pear tree,";
+var verse3b = "And a Partridge in a pear tree.";
+var verse4 = "Two trutle doves,";
+var verse5 = "Three French Hens,";
+var verse6 = "Four calling birds,";
+var verse7 = "Five golden rings,";
+var verse8 = "Six geese a laying,";
+var verse9 = "Seven swans a swimming,";
+var verse10 = "Eight maids a milking,";
+var verse11 = "Nine ladies dancing,";
+var verse12 = "Ten lords a leaping,";
+var verse13 = "Eleven pipers piping,";
+var verse14 = "Twelve drummers drumming,";
+var verseL = [verse4, verse5, verse6, verse7, verse8, verse9, verse10, verse11, verse12, verse13, verse14];
+var i = 0;
+var sentence = verse3b + "<br>";
+var sentenceL = ["sent2", "sent3", "sent4", "sent5", "sent6", "sent7", "sent8", "sent9", "sent10", "sent11", "sent12"];
+var day = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+var firstVL = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+
+// use loop to generate the verses for each paragraph
+while (i < sentenceL.length)
+{
+ sentenceL[i] = verseL[i] + "<br>" + sentence;
+ sentence = sentenceL[i];
+ i++;
+}
+
+// loop and switch statements to assign the day
+for (i = 0; i < day.length; i++)
+{
+  switch(true) {
+  case (day[i] == "one"):
+  day[i] = "first"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+  
+  case (day[i] == "two"):
+  day[i] = "second"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "three"):
+  day[i] = "third"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+ 
+  case (day[i] == "four"):
+  day[i] = "fourth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "five"):
+  day[i] = "fifth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+  
+  case (day[i] == "six"):
+  day[i] = "sixth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "seven"):
+  day[i] = "seventh"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "eight"):
+  day[i] = "eighth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+  
+  case (day[i] == "nine"):
+  day[i] = "nineth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "ten"):
+  day[i] = "tenth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "eleven"):
+  day[i] = "eleventh"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+   
+  case (day[i] == "twelve"):
+  day[i] = "twelfth"
+  firstVL[i] = "On the " + day[i] + " day of Christmas"
+  break;
+  }
+}
+
+// loop and switch statements to print the paragraphs
+for (i = 0; i < day.length; i++)
+{ 
+     switch(true) {  
+     case (day[i] == "first"):
+     document.getElementById("one").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + verse3 + "<br>")
+     break;
+   
+     case (day[i] == "second"):
+     document.getElementById("two").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[0])
+     break;
+   
+     case (day[i] == "third"):
+     document.getElementById("three").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[1])
+     break;
+   
+     case (day[i] == "fourth"):
+     document.getElementById("four").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[2])
+     break;
+   
+     case (day[i] == "fifth"):
+     document.getElementById("five").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[3])
+     break;
+   
+     case (day[i] == "sixth"):
+     document.getElementById("six").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[4])
+     break;
+   
+     case (day[i] == "seventh"):
+     document.getElementById("seven").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[5])
+     break;
+   
+     case (day[i] == "eighth"):
+     document.getElementById("eight").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[6])
+     break;
+   
+     case (day[i] == "nineth"):
+     document.getElementById("nine").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[7])
+     break;
+   
+     case (day[i] == "tenth"):
+     document.getElementById("ten").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[8])
+     break;
+   
+     case (day[i] == "eleventh"):
+     document.getElementById("eleven").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[9])
+     break;
+   
+     case (day[i] == "twelfth"):
+     document.getElementById("twelve").innerHTML = (firstVL[i] + "<br>" + verse2 + "<br>" + sentenceL[10])
+     break;
+     }
+}
+
+</script>
+</div>
+
+<div id="tabs-7">
+<h4>Draw your size of square</h4>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform6").validate({
+  // Rules for each input item
+  rules:
+  {
+   side: { required: true, number: true, min: 2, max: 10},
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// convert an input number into a square with the side equals to the input
+function square()
+{
+ if ($("#myform6").valid()) {
+ var size = parseInt(document.getElementById("side").value),
+     display = "";
+
+  display += "<table><tr>";
+  for (star = 0; star < size; star++)
+  {
+   display += "<td>*&nbsp;</td>";
+  }
+  display += "</tr>"; 
+  
+  for (row = 2; row < size; row++)
+  {
+   display += "<tr>";
+   display += "<td>*&nbsp;</td>";
+   for (space = 2; space < size; space++)
+   {
+    display += "<td>&nbsp;</td>";
+   }
+   display += "<td>*&nbsp;</td>";
+   display += "</tr>";
+  }
+
+  display += "<tr>";
+  for (star = 0; star < size; star++)
+  {
+   display += "<td>*&nbsp;</td>";
+  }
+  display += "</tr>";
+  
+ document.getElementById("theSquare").innerHTML = display; 
+ 
+ }
+}
+</script>
+
+<form id="myform6" name="myform6">
+<p><label for="side">Please enter a number for the size of the square: </label></p>
+<p class="n"><input type="text" id="side" name="side" size="4" autofocus /><br></p>
+
+<input type="button" onclick="square()" value="SUBMIT">
+<br><br>
+
+<div id="theSquare"></div>
+
+</form>
+
+</div>
+
+</div>
+</section>
+
+
+
+<footer>
+<p class="center">
+<a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:64px;height:64px" src="HTML5_Logo_64.png" alt="HTML5"></a>
+<a href="http://css-validator.org/check/referer"><img style="border:0;width:88px;height:31px"
+            src="http://css-validator.org/images/vcss.png"
+            alt="Valid CSS!" /></a>
+</p>
+
+</footer>
+
+</body>
+
+</html>
