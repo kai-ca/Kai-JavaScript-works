@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CNIT 133 Homework 02 - Basic Operations</title>
+<meta name="keywords" content="Kai Yun Pekarsky, html class, CNIT133, web application programming">
+<meta name="description" content="Home Page of Kai Yun Pekarsky, student at CCSF.">
+
+<style type="text/css">
+/* set design for the body */
+
+body {
+      background-color: #ffc95c;
+	    color: #005858;
+	    Text-align: center;
+	   }
+
+.body { width: 520px;
+        margin: 0px auto;  
+      }
+	  
+/* set design for the nav */
+
+nav {
+     width: 500px;
+     margin: 0px auto; background-color: #b4ecec;
+	  }
+	  
+/* set links without underline */
+
+a { 
+    text-decoration: none; 
+    color: #004242;
+	}
+
+/* on user's hover over a link, give underline, give background color of orange */
+
+a:hover {font-weight: bold; text-decoration: underline; background-color: #ffc95c;}
+
+a:visited {text-decoration: none; color: #5f6c73;}
+
+/* design for the footer */
+
+.center {text-align: center;}
+
+</style>
+
+<script>
+/* use a script containing getElementById and innerHTML, and a form button to create and write a similar table of squares and cubes using numbers 7-10. When the user clicks this button then the table should be generated right below it. */
+
+function process()
+{
+// set variable to contain an HTML table
+
+var display = "";
+
+    display += "<table border='2'>";
+	display += "<tr><th> Number </th><th> Square </th><th> Cube </th></tr>";
+
+    // set a for loop to generate the rows for number from 7 to 10
+	
+    for (i=7; i <= 10; i++)
+    {
+      var s=Math.pow(i,2);
+      display += "<tr align='right'><td>" + i + "</td>" + "<td>" + s + "</td>" + "<td>" + i*s + "</td>";
+    }
+	display += "</table>";
+	
+// set the contents of the <div> block to the contents of display
+
+document.getElementById("theTable").innerHTML = display;
+}
+
+</script>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="js_asmt02.html">Back to Home</a> |
+<a href="js_asmt02_part1.html">Part 1</a> |
+<a href="js_asmt02_part2.html">Part 2</a> |
+<a href="js_asmt02_part3.html">Part 3</a> |
+Part 4 |
+<a href="js_asmt02_extra.html">Extra Credit</a> 
+
+</nav>
+<br><br>
+
+<section class="body">
+
+<h2>CNIT 133 Homework 02 - Basic Operations Part 4</h2>
+
+<h3>Table of Squares and Cubes for Numbers 1-6</h3>
+<br>
+
+<script>
+/* calculates the squares and cubes of the numbers 1 to 6 and outputs text that displays (using document.write or document.writeln statements) the resulting values in a table format */
+
+// write the header for the table
+
+document.write("<div align='center'>");
+document.write("<table border='2'>" + "<tr><th> Number </th> <th> Square </th> <th> Cube </th></tr>");
+
+// set a for loop to generate the rows for number from 1 to 6
+
+for (i=1; i <= 6; i++)
+{
+    var s=Math.pow(i,2);
+    document.write("<tr align='right'><td> " + i + "</td>" + "<td>" + s + "</td>" + "<td>" + i*s + "</td>");
+}
+
+document.write( "</table>" );
+
+document.close();
+
+</script>
+<br>
+
+<h3>Table of Squares and Cubes for Numbers 7-10</h3>
+<br>
+
+<form>
+<input type="button" value="Display the Table" onclick="process();">
+
+</form>
+<br>
+
+<!-- this is where the table will be displayed by the document.getElementById statement -->
+
+<div id="theTable"></div>
+<br><br>
+
+<footer>
+<p class="center">
+<a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:64px;height:64px" src="HTML5_Logo_64.png" alt="HTML5"></a>
+<a href="http://css-validator.org/check/referer"><img style="border:0;width:88px;height:31px"
+            src="http://css-validator.org/images/vcss.png"
+            alt="Valid CSS!" /></a>
+</p>
+</footer>
+
+</section>
+
+</body>
+
+</html>
