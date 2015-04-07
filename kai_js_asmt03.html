@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Homework 03 - JavaScript: Functions</title>
+<meta name="keywords" content="Kai Yun Pekarsky, html class, CNIT133, web application programming">
+<meta name="description" content="Home Page of Kai Yun Pekarsky, student at CCSF.">
+
+<!-- set up the tab and style for the main section  -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<style type="text/css">
+body {
+      background-color: #e1fbfb;
+	    color: #005858;
+	    Text-align: center;
+	   }
+
+#content {
+	        width:850px;
+	        margin: 0px auto; 
+		      padding: 15px;
+          text-align: left; /* Counteract to IE/Win Hack */	
+	        background-color: #b4ecec;
+          border: 0px; 
+		      padding: 20px; 
+          border-radius: 25px;  
+		    }	  
+
+.n { color: red; font-style: italic; }
+
+/* For panel design */		
+#panel,#flip {
+              padding: 5px;
+	            text-align: center;
+	            background-color: #ffc95c;
+	            border: solid 2px #005858;
+	           }
+
+#panel {
+        padding: 5px;
+	      display: none;
+	     }
+		
+/* For form design */
+table { 
+       border-collapse: collapse;
+       text-align: left;
+       padding: 20px; 
+       border: solid 2px #005858;
+       background-color: #ffc95c;
+	     margin: 0px auto;
+      }
+/* For input alignment */
+input {text-align: right;}
+
+/* For the tooltip format */
+label.tool {display: inline-block; width: 14em;}
+.ui-tooltip {width: 210px;}
+
+</style>
+
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h2>CNIT 133 Homework 3 - Functions</h2>
+</header>
+
+<section id="content">
+<div id="tabs">
+
+<ul>
+<li><a href="#tabs-1">Part 1</a></li>
+<li><a href="#tabs-2">Part 2</a></li>
+<li><a href="#tabs-3">Part 3</a></li>
+<li><a href="#tabs-4">Part 4</a></li>
+<li><a href="#tabs-5">Part 5</a></li>
+<li><a href="#tabs-6" onclick="askQ()">Part 6</a></li>
+</ul>
+
+<div id="tabs-1">
+<h4>Student Grades</h4>
+
+<script>
+// hide/ show instructions
+$(document).ready(function(){
+  $("#flip").click(function(){
+    $("#panel").slideToggle("slow");
+	});
+});
+</script>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform").validate({
+  // Rules for each input item
+  rules:
+  {
+  hw: { required: true, number: true, min: 0, max: 100},
+  acr: { required: true, number: true, min: 0, max: 100},
+  mid: { required: true, number: true, min: 0, max: 100},
+  final: { required: true, number: true, min: 0, max: 100}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// calculate based on user input
+function calculate() {
+
+if ($("#myform").valid()) {
+
+  // define variables and get input number value from form using getElementById
+  var hw = document.getElementById("hw").value,
+      acr = document.getElementById("acr").value,
+      mid = document.getElementById("mid").value,
+	  final = document.getElementById("final").value;
+	  
+  // cast the input into integer
+  var hwInt = parseInt(hw),
+      acrInt = parseInt(acr),
+	  midInt = parseInt(mid),
+	  finalInt = parseInt(final);
+  
+  // calculate the final average
+  var finalAvg = (.5 * hwInt) + (.2 * midInt) + (.2 * finalInt) + (.1 * acrInt);
+
+  // switch statement
+      switch(true) {  
+	  case (finalAvg >= 90):
+	  document.myform.result.value =  ( "Your final average is " + Math.round(finalAvg) +
+	  "\nYour final grade is A")
+	  break;
+	  
+	  case (finalAvg >= 80):
+	  document.myform.result.value =  ( "Your final average is " + Math.round(finalAvg) +
+	  "\nYour final grade is B")
+	  break;
+	  
+	  case (finalAvg >= 70):
+	  document.myform.result.value =  ( "Your final average is " + Math.round(finalAvg) +
+	  "\nYour final grade is C")
+	  break;
+	  
+	  default:
+	  document.myform.result.value =  ( "Your final average is " + Math.round(finalAvg) +
+	  "\nYou must re-take the course!")
+	  break;
+	  }
+  }
+}
+</script>
+
+<div id="flip">Click to Show/Hide Instructions</div>
+<div id="panel">The following webpage contains the heading, Student Grades, and uses a script that inputs a student's homework average, mid-term exam score, final exam score, and ACR (all as integers)</div>
+<br>
+
+<form id="myform" name="myform">
+
+<table>
+<tr>
+<td colspan="2"><label for="hw">Enter Your Homework Average: </label></td>
+<td colspan="2"><label for="acr">Enter Your ACR Score: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" id="hw" name="hw" size="6" autofocus onkeyup="if (this.value.length >3) document.myform.acr.focus();"><br></p></td>
+<td colspan="2"><p class="n"><input type="text" id="acr" name="acr" size="6" onkeyup="if (this.value.length >3) document.myform.mid.focus();"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="mid">Enter Your Mid-term Score: </label></td>
+<td colspan="2"><label for="final">Enter Your Final Exam Score: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" id="mid" name="mid" size="6" onkeyup="if (this.value.length >3) document.myform.final.focus();"><br></p></td>
+<td colspan="2"><p class="n"><input type="text" id="final" name="final" size="6"><br></p></td>
+</tr>
+<tr>
+<td colspan="4">Result: </td>
+</tr>
+<tr>
+<td colspan="4">
+<textarea rows="4" cols="60" name="result"></textarea>
+</td>
+</tr>
+</table>
+<br><br>
+
+<input type="button" onclick="calculate()" value="SUBMIT">
+<input type="reset" value="RESET" onclick="location.reload();">
+
+</form>
+</div>
+
+<div id="tabs-2">
+<h4>Sales Report</h4>
+
+<script>
+// for the tooltip function
+$(function() {
+var tooltips = $( "[title]" ).tooltip({
+position: {
+my: "left top",
+at: "right+5 top-5"
+}
+})
+});
+</script>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform2").validate({
+  // Rules for each input item
+  rules:
+  {
+  item1: { required: true, number: true, min: 0},
+  item2: { required: true, number: true, min: 0},
+  item3: { required: true, number: true, min: 0},
+  item4: { required: true, number: true, min: 0}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// calculate the commission based on user input
+function calculate2() {
+
+if ($("#myform2").valid()) {
+  
+  // define variables and get input number value from form using getElementById
+  var item1 = document.getElementById("item1").value,
+      item2 = document.getElementById("item2").value,
+      item3 = document.getElementById("item3").value,
+	  item4 = document.getElementById("item4").value;
+
+  // cast the input into integer
+  var item1Q = parseInt(item1),
+      item2Q = parseInt(item2),
+	  item3Q = parseInt(item3),
+	  item4Q = parseInt(item4);
+  
+  // populate the quantity of item sold for each item
+  document.myform2.sold1.value = item1Q;
+  document.myform2.sold2.value = item2Q;
+  document.myform2.sold3.value = item3Q;
+  document.myform2.sold4.value = item4Q;
+  
+  // calculate the total amount 
+  var item1S = (item1Q * 239.99).toFixed(2),
+      item2S = (item2Q * 129.75).toFixed(2),
+      item3S = (item3Q * 99.95).toFixed(2),
+      item4S = (item4Q * 350.89).toFixed(2),
+	  total = (item1Q * 239.99 + item2Q * 129.75 + item3Q * 99.95 + item4Q * 350.89).toFixed(2),
+	  totalW = (total * 0.09 + 200).toFixed(2);
+  
+  // populate the amount sold for each item, the total amount sold and weekly earnings
+  document.myform2.total1.value = item1S;
+  document.myform2.total2.value = item2S;
+  document.myform2.total3.value = item3S;
+  document.myform2.total4.value = item4S;
+  document.myform2.totalA.value = total;
+  document.myform2.totalWE.value = totalW;
+  }
+}
+</script>
+
+<form id="myform2" name="myform2">
+
+<table>
+<tr>
+<td colspan="2"><label for="salesName" class="tool">Salesperson's Name: </label></td>
+<td colspan="2"><input type="text" id="salesName" name="salesName" size="30" autofocus title="Please make sure that the salesperson's name is spelled correctly"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="4">Input the number of items sold for each item number: </td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><label for="item1">Item 1: </label></td>
+<td colspan="2"><label for="item2">Item 2: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" id="item1" name="item1" size="10"><br></p></td>
+<td colspan="2"><p class="n"><input type="text" id="item2" name="item2" size="10"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="item3">Item 3: </label></td>
+<td colspan="2"><label for="item4">Item 4: </label></td>
+</tr>
+<tr>
+<td colspan="2"><p class="n"><input type="text" id="item3" name="item3" size="10"><br></p></td>
+<td colspan="2"><p class="n"><input type="text" id="item4" name="item4" size="10"><br></p></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td colspan="2"><input type="button" onclick="calculate2()" value="SUBMIT"></td>
+<td colspan="2"><input type="reset" value="RESET" onclick="document.getElementById('salesName').focus();"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<th>Item# </th>
+<th>Price </th>
+<th>Number Sold </th>
+<th>Total</th>
+</tr>
+<tr>
+<td>1 </td>
+<td>$239.99 </td>
+<td><input type="text" id="sold1" name="sold1" size="10"></td>
+<td><input type="text" id="total1" name="total1" size="10"></td>
+</tr>
+<tr>
+<td>2 </td>
+<td>$129.75 </td>
+<td><input type="text" id="sold2" name="sold2" size="10"></td>
+<td><input type="text" id="total2" name="total2" size="10"></td>
+</tr>
+<tr>
+<td>3 </td>
+<td>$99.95</td>
+<td><input type="text" id="sold3" name="sold3" size="10"></td>
+<td><input type="text" id="total3" name="total3" size="10"></td>
+</tr>
+<tr>
+<td>4 </td>
+<td>$350.89 </td>
+<td><input type="text" id="sold4" name="sold4" size="10"></td>
+<td><input type="text" id="total4" name="total4" size="10"></td>
+</tr>
+<tr>
+<td colspan="3">Total Amount Sold: </td>
+<td><input type="text" id="totalA" name="totalA" size="10"></td>
+</tr>
+<tr>
+<td colspan="3">Total Weekly Earnings: </td>
+<td><input type="text" id="totalWE" name="totalWE" size="10"></td>
+</tr>
+</table>
+
+</form>
+</div>
+
+<div id="tabs-3">
+<h4>Credit Card Report</h4>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform3").validate({
+  // Rules for each input item
+  rules:
+  {
+  accN: { required: true, number: true, min: 0},
+  creditA: { required: true, number: true, min: 0},
+  beginB: { required: true, number: true, min: 0},
+  chargeT: { required: true, number: true, min: 0},
+  credit: { required: true, number: true, min: 0}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// use jquery to change multiple css elements at once
+$(document).ready(function(){
+    $("button").click(function(){
+        $("textarea.s").css({
+            "color": "#005858",
+            "background-color": "#e1fbfb",
+            "font-family": "Arial",
+            "font-size": "18px",
+			"font-weight": "bold",
+            "padding": "5px"
+        });
+    });
+});
+</script>
+
+<script>
+// calculate the credit balance based on user input
+function calculate3() {
+
+if ($("#myform3").valid()) {
+  
+  // define variables and get input number value from form using getElementById
+  var creditA = document.getElementById("creditA").value,
+      beginB = document.getElementById("beginB").value,
+      chargeT = document.getElementById("chargeT").value,
+	  credit = document.getElementById("credit").value;
+
+  // cast the input into integer
+  var creditAN = parseFloat(creditA),
+      beginBN = parseFloat(beginB),
+	  chargeTN = parseFloat(chargeT),
+	  creditN = parseFloat(credit);
+  
+  // calculate the new balance 
+  var newB = (beginBN+chargeTN-creditN).toFixed(2),
+      diff = (creditAN - newB).toFixed(2),
+	  diff = Math.abs(diff);
+  
+  // switch statement to populate the summary section
+      switch(true) {  
+	  case (newB > creditAN):
+	  document.myform3.summary.value =  ( "Your new balance is " + newB +
+	  "\nYou have exceeded the credit limit by $" + diff)
+	  break;
+	  
+	  default:
+	  document.myform3.summary.value =  ( "Your new balance is " + newB +
+	  "\nYour available credit is $" + diff)
+	  break;
+	  }
+  }
+}
+</script>
+
+
+<form id="myform3" name="myform3">
+
+<table>
+<tr>
+<td colspan="2"><label for="accN">Account number: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="accN" name="accN" size="10" autofocus onkeyup="if (this.value.length >6) document.myform3.creditA.focus();"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="creditA">Allowed credit limit: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="creditA" name="creditA" size="10" onkeyup="if (this.value.length >8) document.myform3.beginB.focus();"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="beginB">Balance at the beginning of the month: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="beginB" name="beginB" size="10" onkeyup="if (this.value.length >8) document.myform3.chargeT.focus();"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="chargeT">Total of all items charged by this customer this month: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="chargeT" name="chargeT" size="10" onkeyup="if (this.value.length >8) document.myform3.credit.focus();"><br></p></td>
+</tr>
+<tr>
+<td colspan="2"><label for="credit">Total of all credits applied to this customer's account this month: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="credit" name="credit" size="10"><br></p></td>
+</tr>
+<tr>
+<td colspan="4">Summary: </td>
+</tr>
+<tr>
+<td colspan="4">
+<textarea rows="4" cols="60" id="summary" name="summary" class="s"></textarea>
+</td>
+</tr>
+</table>
+<br><br>
+
+<input type="button" onclick="calculate3()" value="SUBMIT">
+<input type="reset" value="RESET" onclick="document.getElementById('accN').focus();">
+<br><br>
+
+<button type="button">Click to change Textarea Display</button>
+
+</form>
+</div>
+
+<div id="tabs-4">
+<h4>Is it a palindrome?</h4>
+
+<script>
+// use jquery number validation function
+$(document).ready(function(){
+  $("#myform4").validate({
+  // Rules for each input item
+  rules:
+  {
+  ints: { required: true, number: true, min: 10000}
+  }, 
+  
+  // style to place the error msg below each of the input field
+  errorPlacement: function(error, element) {
+  if ( element.is(":text")) {
+  error.appendTo( element.parent());
+  } 
+  else {
+  error.insertAfter(element);
+  }
+  }
+ 
+  });	  
+});
+</script>
+
+<script>
+// use the Jquery UI for the instruction button effect
+$(function() {
+$( "#dialog" ).dialog({
+autoOpen: false,
+show: {
+effect: "blind",
+duration: 1000
+},
+hide: {
+effect: "explode",
+duration: 1000
+}
+});
+$( "#opener" ).click(function() {
+$( "#dialog" ).dialog( "open" );
+});
+});
+</script>
+
+<script>
+// determine if it is a palindrome based on user input
+function palindrome() {
+if ($("#myform4").valid()) {
+
+  // get the user input
+  var digit = document.getElementById("ints").value;
+  
+  // make sure there are five digits entered
+  if (digit.length == 5) {
+    // determine whether or not it is a palindrome
+	if (digit.charAt(0) == digit.charAt(digit.length-1) && digit.charAt(1) == digit.charAt(digit.length-2)) {
+	document.myform4.verdict.value = ("Congratulations! You got a palindrome!");
+	}
+	else {
+	document.myform4.verdict.value = ("Sorry, this is not a palindrome!");
+	}
+  }
+  else {
+    alert("Please enter five digits!");
+  }
+}
+}
+</script>
+
+<form id="myform4" name="myform4">
+
+<button type="button" id="opener">Click for instructions</button>
+<div id="dialog" title="Instructions">
+<p>Input a five-digit integer (not starting with zero) to display if it is a palindrome, not a palindrome, or an input error.</p>
+</div>
+<br><br>
+
+<table>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><label for="ints">Enter five integers to test for palindrome: </label></td>
+<td colspan="2"><p class="n"><input type="text" id="ints" name="ints" size="10" autofocus><br></p></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="4">The verdict: </td>
+</tr>
+<tr>
+<td colspan="4">
+<textarea rows="4" cols="60" id="verdict" name="verdict"></textarea>
+</td>
+</tr>
+</table>
+<br><br>
+
+<input type="button" onclick="palindrome()" value="SUBMIT">
+<input type="reset" value="RESET" onclick="document.getElementById('ints').focus();">
+
+</form>
+</div>
+
+<div id="tabs-5">
+<h4>Temperature Conversion</h4>
+
+<script>
+// convert an input number into Fahrenheit
+function convertF()
+{
+// declare variable to contain the input and get the input values
+var inputT = document.myform5.temp.value;
+
+// check input for numeric
+if (isNaN(inputT) || inputT =="")
+  {
+   alert("you must enter a valid number!");
+  }
+else 
+  {
+   // cast the input as integer number
+   var numT = parseInt(inputT);
+  
+   // convert into Fahrenheit
+   var F = (9/5 * numT) + 32;
+   
+   // display the output to appropriate box
+   document.getElementById("tempF").value = Math.round(F) + "\xB0F";
+  }
+}
+</script>
+
+<script>
+// convert an input number into Celsius
+function convertC()
+{
+// declare variable to contain the input and get the input values
+var inputT = document.myform5.temp.value;
+
+// check input for numeric
+if (isNaN(inputT) || inputT =="")
+  {
+   alert("you must enter a valid number!");
+  }
+else 
+  {
+   // cast the input as integer number
+   var numT = parseInt(inputT);
+  
+   // convert into Fahrenheit
+   var C = 5/9 * (numT - 32);
+   
+   // display the output to appropriate box
+   document.getElementById("tempC").value = Math.round(C) + "\u00B0C";
+  }
+}
+</script>
+
+<form id="myform5" name="myform5">
+<table>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="2">Please enter the temperature: </td>
+<td colspan="2"><input type="text" id="temp" name="temp" size="10" autofocus></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><button type="button" onclick="convertF()">Click to convert from Celsius to Fahrenheit</button></td>
+<td colspan="2"><input type="text" id="tempF" name="tempF" size="10"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><button type="button" onclick="convertC()">Click to convert from Fahrenheit to Celsius</button></td>
+<td colspan="2"><input type="text" id="tempC" name="tempC" size="10"></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+</table>
+<br><br>
+
+<input type="reset" value="RESET" onclick="document.getElementById('temp').focus();">
+
+</form>
+</div>
+
+<div id="tabs-6">
+<h4>Game of Multiplication!</h4>
+
+<script>
+// create two one-digit global variables that are generated by random method
+var theNum1 = Math.floor(Math.random()*10),
+    theNum2 = Math.floor(Math.random()*10);
+
+function askQ()
+{
+// output a question using the two random numbers
+document.getElementById("question").innerHTML = "How much is " + theNum1 + " times " + theNum2;
+}
+
+function getAns()
+{
+// declare variable to contain the input and get the input values
+var ans = document.getElementById("answerIn").value;
+  
+// check input for numeric
+if (isNaN(ans) || ans =="")
+  {
+   alert("you must enter a valid number!");
+  }
+
+else 
+  {    
+   // convert the input into integer
+   var ansI = parseInt(ans),
+       correctA = theNum1 * theNum2;
+   
+   // check if the answer if correct
+   if (ansI == correctA)
+     {
+      alert("Very good!");
+      var cont = confirm("Would you like to play again?");
+      if (cont == true)
+        {
+         newQ();
+         document.getElementById("answerIn").value = " ";
+         document.getElementById("answerIn").focus();
+        }
+        else
+        {
+        alert("Thanks for playing! Goodby~");
+        document.getElementById("answerIn").value = " ";
+        document.getElementById("answerIn").focus();
+        }
+     }
+
+    else
+      {
+      alert("No. Please try again!");
+      var cont = confirm("Would you like to try again?");
+        if (cont == true)
+        {
+         askQ();
+         document.getElementById("answerIn").value = " ";
+         document.getElementById("answerIn").focus();
+        }
+        else
+        {
+        alert("Thanks for playing! Goodby~");
+        document.getElementById("answerIn").value = " ";
+        document.getElementById("answerIn").focus();
+        }
+      }
+  }
+}
+
+function newQ()
+{
+// reset the variables
+theNum1 = Math.floor(Math.random()*10),
+theNum2 = Math.floor(Math.random()*10);
+
+// output a question using the two random numbers
+document.getElementById("question").innerHTML = "How much is " + theNum1 + " times " + theNum2;
+}
+</script>
+
+<form id="myform6" name="myform6">
+
+<table>
+<tr>
+<td colspan="4"><p id="question"></p></td>
+</tr>
+<tr>
+<td colspan="4"><input type="text" id="answerIn" name="answerIn" size="10" autofocus></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td colspan="4"><button type="button" onclick="getAns()">Click to check the answer</button></td>
+</tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+</table>
+</form>
+</div>
+
+</div>
+</section>
+
+<footer>
+<p class="center">
+<a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:64px;height:64px" src="HTML5_Logo_64.png" alt="HTML5"></a>
+<a href="http://css-validator.org/check/referer"><img style="border:0;width:88px;height:31px"
+            src="http://css-validator.org/images/vcss.png"
+            alt="Valid CSS!" /></a>
+</p>
+</footer>
+
+</body>
+
+</html>
